@@ -1,0 +1,57 @@
+#!/bin/bash
+
+### Add Keys ###
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886 #Spotify
+
+### Update APT & Install Dependencies ###
+DEPEND_LIST="
+apt-transport-https 
+software-properties-common 
+wget 
+libglibmm-2.4-1v5
+"
+apt-get update
+apt-get --ignore-missing install -y $DEPEND_LIST
+
+### Add Sources ###
+cd ~/Downloads/
+echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_9.4.1~kxstudio1_all.deb
+wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
+wget https://binaries.symless.com/v1.8.8/synergy-v1.8.8-stable-25a8cb2-Linux-x86_64.deb
+wget http://ftp.nluug.nl/pub/graphics/blender/release/Blender2.78/blender-2.78c-linux-glibc219-x86_64.tar.bz2
+dpkg -i kxstudio-repos_9.4.1~kxstudio1_all.deb
+dpkg -i kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
+dpkg --add-architecture i386
+add-apt-repository ppa:wine/wine-builds
+
+### Install Software ###
+SOFTWARE_LIST="
+gparted
+linux-lowlatency
+kxstudio-meta-audio 
+kxstudio-default-settings 
+pulseaudio-module-jack 
+ardour 
+gimp 
+gimp-plugin-registry
+krita 
+inkscape 
+kdenlive
+spotify-client 
+"
+apt-get update
+apt-get --ignore-missing install -y $SOFTWARE_LIST
+apt-get install --install-recommends winehq-devel
+
+dpkg -i google-chrome-stable_current_amd64.deb
+dpkg -i synergy-v1.8.8-stable-25a8cb2-Linux-x86_64.deb
+
+mv blender-2.78c-linux-glibc219-x86_64.tar.bz2 /opt/
+tar -xf /opt/blender-2.78c-linux-glibc219-x86_64.tar.bz2
+rm -f /opt/blender-2.78c-linux-glibc219-x86_64.tar.bz2
+#TODO - add .blend mime type?
+
+### Additional System Configuration ###
+adduser wesley audio #add user to "audio" group
