@@ -48,10 +48,13 @@ apt-get install --install-recommends winehq-devel
 dpkg -i google-chrome-stable_current_amd64.deb
 dpkg -i synergy-v1.8.8-stable-25a8cb2-Linux-x86_64.deb
 
-mv blender-2.78c-linux-glibc219-x86_64.tar.bz2 /opt/
-tar -xf /opt/blender-2.78c-linux-glibc219-x86_64.tar.bz2
-rm -f /opt/blender-2.78c-linux-glibc219-x86_64.tar.bz2
+mv blender-2.78c-linux-glibc219-x86_64.tar.bz2 /opt/ && cd /opt/
+tar -xf blender-2.78c-linux-glibc219-x86_64.tar.bz2
+rm -f blender-2.78c-linux-glibc219-x86_64.tar.bz2
 #TODO - add .blend mime type?
 
 ### Additional System Configuration ###
 adduser wesley audio #add user to "audio" group
+
+### Uncomment to reboot! (required) ###
+#reboot
