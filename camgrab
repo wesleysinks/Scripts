@@ -1,0 +1,23 @@
+#!/bin/bash
+
+### GRAB - Script for grabbing camera images from Android FTP server and creating a video timelapse from the images. 
+
+### Script downloads images to a date directory, removes remote files, creates video using FFMPEG, then removes local image files.
+
+TODAY=date +"%m%d%y"
+
+mkdir $TODAY && cd $TODAY
+
+### FTP (requires .netrc)
+
+ftp -pi 192.168.0.10 2221
+cd OpenCamera
+binary
+mget *
+mdelete *
+bye
+
+### FFMPEG
+
+ffmpeg -framerate 30 -pattern_type glob -i "IMG_*.jpg" -vf scale=1920:1080 $TODAY.webm
+rm *.jpg
