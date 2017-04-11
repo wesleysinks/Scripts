@@ -16,7 +16,7 @@ fi
 
 cd $TODAY
 
-### FTP (requires .netrc)
+### FTP
 
 ftp -pi $HOST << EOT
 binary
