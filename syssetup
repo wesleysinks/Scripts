@@ -27,6 +27,7 @@ add-apt-repository -y ppa:wine/wine-builds
 add-apt-repository -y ppa:obsproject/obs-studio
 add-apt-repository -y ppa:kdenlive/kdenlive-stable
 add-apt-repository -y ppa:thomas-schiex/blender
+add-apt-repository -y ppa:remmina-ppa-team/remmina-next
 
 ### Install Software ###
 SOFTWARE_LIST="
@@ -45,11 +46,13 @@ obs-studio
 spotify-client 
 vlc
 blender
+remmina
+remmina-plugin-rdp
+libfreerdp-plugins-standard
 "
 apt-get update
 apt-get --ignore-missing install -y $SOFTWARE_LIST
 apt-get install --install-recommends winehq-devel
-snap install -y remmina
 
 dpkg -i google-chrome-stable_current_amd64.deb
 dpkg -i synergy-v1.8.8-stable-25a8cb2-Linux-x86_64.deb
@@ -58,4 +61,4 @@ dpkg -i synergy-v1.8.8-stable-25a8cb2-Linux-x86_64.deb
 adduser wesley audio #add user to "audio" group
 
 ### Uncomment to reboot! (required) ###
-#reboot
+reboot
