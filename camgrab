@@ -4,20 +4,30 @@
 
 ### Script downloads images to a date directory, removes remote files, creates video using FFMPEG, then removes local image files.
 
-TODAY=date +"%m%d%y"
+HOST='192.168.0.10 2221'
+USER='camera'
+PASSWD='camera'
+TODAY=$(date +%m%d%y)
 
-mkdir $TODAY && cd $TODAY
+if [ ! -d $TODAY ]
+  then
+    mkdir $TODAY
+fi
+
+cd $TODAY
 
 ### FTP (requires .netrc)
 
-ftp -pi 192.168.0.10 2221
-cd OpenCamera
+ftp -pi $HOST << EOT
 binary
+user $USER $PASSWD
 mget *
 mdelete *
 bye
+EOT
 
+cd ..
 ### FFMPEG
 
-ffmpeg -framerate 30 -pattern_type glob -i "IMG_*.jpg" -vf scale=1920:1080 $TODAY.webm
-rm *.jpg
+ffmpeg -framerate 30 -pattern_type glob -i "$TODAY/IMG_*.jpg" -vf scale=1920:1080 $TODAY.mp4
+

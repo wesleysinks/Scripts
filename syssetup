@@ -20,11 +20,13 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_9.4.1~kxstudio1_all.deb
 wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
 wget https://binaries.symless.com/v1.8.8/synergy-v1.8.8-stable-25a8cb2-Linux-x86_64.deb
-wget http://ftp.nluug.nl/pub/graphics/blender/release/Blender2.78/blender-2.78c-linux-glibc219-x86_64.tar.bz2
 dpkg -i kxstudio-repos_9.4.1~kxstudio1_all.deb
 dpkg -i kxstudio-repos-gcc5_9.4.1~kxstudio1_all.deb
 dpkg --add-architecture i386
-add-apt-repository ppa:wine/wine-builds
+add-apt-repository -y ppa:wine/wine-builds
+add-apt-repository -y ppa:obsproject/obs-studio
+add-apt-repository -y ppa:kdenlive/kdenlive-stable
+add-apt-repository -y ppa:thomas-schiex/blender
 
 ### Install Software ###
 SOFTWARE_LIST="
@@ -39,19 +41,18 @@ gimp-plugin-registry
 krita 
 inkscape 
 kdenlive
+obs-studio
 spotify-client 
+vlc
+blender
 "
 apt-get update
 apt-get --ignore-missing install -y $SOFTWARE_LIST
 apt-get install --install-recommends winehq-devel
+snap install -y remmina
 
 dpkg -i google-chrome-stable_current_amd64.deb
 dpkg -i synergy-v1.8.8-stable-25a8cb2-Linux-x86_64.deb
-
-mv blender-2.78c-linux-glibc219-x86_64.tar.bz2 /opt/ && cd /opt/
-tar -xf blender-2.78c-linux-glibc219-x86_64.tar.bz2
-rm -f blender-2.78c-linux-glibc219-x86_64.tar.bz2
-#TODO - add .blend mime type?
 
 ### Additional System Configuration ###
 adduser wesley audio #add user to "audio" group
