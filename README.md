@@ -1,2 +1,2 @@
 # Scripts
-Various BASH scripts
+Various shell scripts
